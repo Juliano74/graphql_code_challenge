@@ -1,0 +1,43 @@
+type PDV{
+    id: ID!
+    tradingName: String!
+    ownerName: String!
+    document: String!
+    coverageArea: CoverageArea!
+    address: Address!
+}
+
+type Address{
+    type: String!
+    coordinates: [Float!]!
+}
+
+type CoverageArea{
+    type: String!
+    coordinates: [[[[Float!]!]!]!]!
+}
+
+input AddressInput{
+    type: String!
+    coordinates: [Float!]!
+}
+
+input CoverageAreaInput{
+    type: String!
+    coordinates: [[[[Float!]!]!]!]!
+}
+
+type Query{
+    allPDVs: [PDV]
+    getPDV(id: String!): PDV
+    searchClosestPDV(lng: Float!, lat: Float!): PDV
+}
+
+type Mutation{
+    createPDV(id: String!, tradingName: String!, ownerName: String!, document: String!, coverageArea: CoverageAreaInput!, address: AddressInput!) : PDV
+}
+
+schema{
+    query: Query
+    mutation: Mutation
+}
